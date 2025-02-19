@@ -25,6 +25,6 @@ const firSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const FIR = mongoose.model('FIR', firSchema);
+const FIR = mongoose.model('Fir', firSchema);
 
 module.exports = FIR ;
