@@ -25,11 +25,12 @@
             required: true,
             default: Date.now
         },
-        officer_id: {
-            type: Number,
+        user: {
+            type: mongoose.Schema.Types.objectId,
+            ref:'User',
             required: true,
-            min: 1
-        }
+            min: 1,
+        },
     }, { timestamps: true });
 
     const Complaint = mongoose.model('Complaint', complaintSchema);
