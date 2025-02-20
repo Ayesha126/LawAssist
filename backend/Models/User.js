@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    contact:{
+        type: String,
+        required: true,
+    },
     role: {
         type: String,
         enum: ['Admin', 'Police'],

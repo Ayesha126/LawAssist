@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const firSchema = new mongoose.Schema({
     fir_id: {
         type: Number,
@@ -5,17 +7,18 @@ const firSchema = new mongoose.Schema({
         required: true
     },
     complaint: {
-       type: mongoose.Schema.Types.objectId,
-       ref:'Complaint',
-        required: true
+       type: mongoose.Schema.Types.ObjectId,
+       ref: 'Complaint',
+       required: true
     },
-    sections: {
-        type: String,
+    sections: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'IPCSection',
         required: true
-    },
+    }],
     user: {
-        type: mongoose.Schema.Types.objectId,
-        ref:'User',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
     },
     status: {
@@ -25,6 +28,6 @@ const firSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const FIR = mongoose.model('Fir', firSchema);
+const FIR = mongoose.model('FIR', firSchema);
 
-module.exports = FIR ;
+module.exports = FIR;
