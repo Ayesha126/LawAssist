@@ -1,0 +1,115 @@
+/* Table Container */
+.table-container {
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title */
+  .table-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 20px;
+  }
+  
+  /* Table Wrapper */
+  .table-wrapper {
+    overflow-x: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Table */
+  .modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+  
+  /* Table Header */
+  .modern-table thead {
+    background: #3b82f6;
+    color: white;
+  }
+  
+  .modern-table th {
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  
+  .modern-table tbody tr {
+    transition: background 0.3s ease-in-out;
+  }
+  
+  /* Alternating Row Colors */
+  .modern-table tbody tr:nth-child(even) {
+    background: #f3f4f6;
+  }
+  
+  /* Hover Effect */
+  .modern-table tbody tr:hover {
+    background: rgba(59, 130, 246, 0.2);
+  }
+  
+  /* Table Cells */
+  .modern-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  /* Table Actions */
+  .table-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  /* Buttons */
+  .edit-btn,
+  .delete-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .edit-btn {
+    background: #10b981;
+    color: white;
+  }
+  
+  .delete-btn {
+    background: #ef4444;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background: #059669;
+  }
+  
+  .delete-btn:hover {
+    background: #dc2626;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .modern-table {
+      font-size: 14px;
+    }
+  
+    .edit-btn,
+    .delete-btn {
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+  }
+  
