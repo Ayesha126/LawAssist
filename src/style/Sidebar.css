@@ -10,6 +10,11 @@
   padding-top: 10px;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
 }
+.sidebar .menu li svg {
+  font-size: 20px; /* Set a fixed size */
+  transition: font-size 0.2s ease-in-out; /* Smooth transition */
+}
+
 
 /* Collapsed Sidebar */
 .sidebar.collapsed {
@@ -91,6 +96,12 @@
   display: flex;
   flex-direction: column;
 }
+.submenu-btn svg {
+  font-size: 20px; /* Set a fixed size */
+  min-width: 20px; /* Ensure consistent spacing */
+  transition: font-size 0.2s ease-in-out; /* Smooth transition */
+}
+
 
 .submenu-btn {
   display: flex;
