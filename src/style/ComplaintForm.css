@@ -1,0 +1,111 @@
+.complaint-form-container {
+    margin-left: 250px; /* Ensure it's pushed right beside the sidebar */
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .complaint-form-container form {
+    max-width: 600px;
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .complaint-form-container label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .complaint-form-container input,
+  .complaint-form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .complaint-form-container button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .complaint-form-container button:hover {
+    background-color: #2563eb;
+  }
+  
+
+
+  
+  /* Add these styles to your CSS file for the voice input toggle */
+.voice-toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .voice-toggle-checkbox {
+    display: none;
+  }
+  
+  .voice-toggle-slider {
+    position: relative;
+    width: 34px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 50px;
+    transition: 0.4s;
+  }
+  
+  .voice-toggle-slider:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+  
+  .voice-toggle-checkbox:checked + .voice-toggle-slider {
+    background-color: #4caf50; /* Green when enabled */
+  }
+  
+  .voice-toggle-checkbox:checked + .voice-toggle-slider:before {
+    transform: translateX(14px); /* Move the slider */
+  }
+  
+  .voice-toggle-slider.enabled {
+    background-color: #4caf50; /* Green when enabled */
+  }
+  /* Add these styles for microphone icon positioning */
+.input-wrapper {
+    position: relative;
+  }
+  
+  .microphone-icon {
+    position: absolute;
+    bottom: -20px;  /* Adjust the value to place the icon below the textarea */
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    padding-top: 20px;
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  .microphone-icon:hover {
+    color: #0056b3;
+  }
+  

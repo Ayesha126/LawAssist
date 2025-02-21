@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaTachometerAlt, FaUserShield, FaUserPlus, FaUsers, FaBars, FaChevronDown } from "react-icons/fa";
+import {
+  FaTachometerAlt,
+  FaUserShield,
+  FaUserPlus,
+  FaUsers,
+  FaBars,
+  FaChevronDown,
+  FaExclamationCircle,
+  FaRegClipboard ,
+  FaFileAlt ,
+  FaPen  // New icon for complaint form
+} from "react-icons/fa";
 import "../style/Sidebar.css";
 
 const Sidebar = () => {
@@ -39,6 +50,13 @@ const Sidebar = () => {
               </Link>
             </li>
           </ul>
+        </li>
+        {/* Complaint Form Link */}
+        <li>
+          <Link to="/complaint-form">
+            <FaFileAlt/>
+            <span className={`menu-text ${collapsed ? "hidden" : ""}`}>Complaint Form</span>
+          </Link>
         </li>
       </ul>
     </div>
