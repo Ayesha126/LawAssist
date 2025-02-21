@@ -1,5 +1,4 @@
 import React from "react";
-import "../style/Sidebar.css";
 import "../style/Table.css"; // New CSS file for modern tables
 
 const officers = [

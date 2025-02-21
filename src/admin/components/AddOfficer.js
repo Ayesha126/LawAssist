@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaUser, FaEnvelope, FaIdBadge, FaShieldAlt, FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import "../style/Sidebar.css";
 import "../style/Form.css";
 
 const AddOfficer = () => {
