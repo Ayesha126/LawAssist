@@ -1,3 +1,9 @@
+const jwt = require('jsonwebtoken');
+const { auth, isAdmin, isPolice } = require('./middleware/auth');
+const JWT_SECRET = 'Shhh'; // In production, use environment variable
+
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -20,10 +26,52 @@ mongoose.connect('mongodb+srv://the_umersaiyad:Umer2003@cluster0.dktji.mongodb.n
     useUnifiedTopology: true
 });
 
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and password are required' });
+        }
+
+        const user = await User.findOne({ email: email.toLowerCase(), status: 'Active' });
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign(
+            { 
+                user_id: user.user_id, 
+                role: user.role,
+                email: user.email
+            },
+            JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        res.json({ 
+            message: 'Login successful',
+            token,
+            user: {
+                user_id: user.user_id,
+                name: user.name,
+                role: user.role,
+                email: user.email
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 // ===================== USER ROUTES =====================
 
 // Add a new User
-app.post('/users', async (req, res) => {
+app.post('/users', auth,isAdmin,async (req, res) => {
     try {
         const { name, contact, role, email, password, status = 'Active' } = req.body;
 
@@ -75,7 +123,7 @@ app.post('/users', async (req, res) => {
 });
 
 // List all Active Users
-app.get('/users', async (req, res) => {
+app.get('/users', auth,isAdmin, async (req, res) => {
     try {
         const users = await User.find({ status: 'Active' }).select('-password');
         res.status(200).json(users);
@@ -85,7 +133,7 @@ app.get('/users', async (req, res) => {
 });
 
 // Get specific User
-app.get('/users/:userId', async (req, res) => {
+app.get('/users/:userId',  auth,isAdmin,async (req, res) => {
     try {
         const userId = parseInt(req.params.userId);
         const user = await User.findOne({ user_id: userId, status: 'Active' }).select('-password');
@@ -99,7 +147,7 @@ app.get('/users/:userId', async (req, res) => {
 });
 
 // Update User
-app.put('/users/:userId', async (req, res) => {
+app.put('/users/:userId', auth,isAdmin, async (req, res) => {
     try {
         const userId = parseInt(req.params.userId);
         const updateData = { ...req.body };
@@ -124,7 +172,7 @@ app.put('/users/:userId', async (req, res) => {
 });
 
 // Soft Delete User
-app.delete('/users/:userId', async (req, res) => {
+app.delete('/users/:userId', auth,isAdmin, async (req, res) => {
     try {
         const userId = parseInt(req.params.userId);
         const user = await User.findOneAndUpdate(
@@ -144,7 +192,7 @@ app.delete('/users/:userId', async (req, res) => {
 // ===================== COMPLAINT ROUTES =====================
 
 // Add new Complaint
-app.post('/complaints', async (req, res) => {
+app.post('/complaints', auth,isPolice, async (req, res) => {
     try {
         const {
             description,
@@ -198,7 +246,7 @@ app.post('/complaints', async (req, res) => {
     }
 });
 // List all Active Complaints
-app.get('/complaints', async (req, res) => {
+app.get('/complaints',auth,isPolice, async (req, res) => {
     try {
         const complaints = await Complaint.find({ status: 'Active' })
             .populate('assigned_officer', 'name contact');
@@ -209,7 +257,7 @@ app.get('/complaints', async (req, res) => {
 });
 
 // Get specific Complaint
-app.get('/complaints/:complaintId', async (req, res) => {
+app.get('/complaints/:complaintId', auth,isPolice,async (req, res) => {
     try {
         const complaintId = parseInt(req.params.complaintId);
         const complaint = await Complaint.findOne({ 
@@ -226,7 +274,7 @@ app.get('/complaints/:complaintId', async (req, res) => {
 });
 
 // Update Complaint
-app.put('/complaints/:complaintId', async (req, res) => {
+app.put('/complaints/:complaintId',auth,isPolice, async (req, res) => {
     try {
         const complaintId = parseInt(req.params.complaintId);
         const complaint = await Complaint.findOneAndUpdate(
@@ -244,7 +292,7 @@ app.put('/complaints/:complaintId', async (req, res) => {
 });
 
 // Soft Delete Complaint
-app.delete('/complaints/:complaintId', async (req, res) => {
+app.delete('/complaints/:complaintId',auth,isPolice, async (req, res) => {
     try {
         const complaintId = parseInt(req.params.complaintId);
         const complaint = await Complaint.findOneAndUpdate(
@@ -264,7 +312,7 @@ app.delete('/complaints/:complaintId', async (req, res) => {
 // ===================== FIR ROUTES =====================
 
 // Add new FIR
-app.post('/firs', async (req, res) => {
+app.post('/firs', auth,isPolice,async (req, res) => {
     try {
         const { complaint, sections, user, status = 'Open' } = req.body;
 
@@ -286,7 +334,7 @@ app.post('/firs', async (req, res) => {
         // Find the complaint
         const complaintDoc = await Complaint.findOne({ 
             complaint_id: complaint,
-            status: 'Added'
+            status: 'Active',
         });
         if (!complaintDoc) {
             return res.status(404).json({ error: 'Complaint not found' });
@@ -303,10 +351,11 @@ app.post('/firs', async (req, res) => {
         // Find the user
         const userDoc = await User.findOne({ 
             user_id: user,
-            status: 'Active'
+            status: 'Active',
+            role: 'Police'
         });
         if (!userDoc) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Invalid or inactive assigned officer/User' });
         }
 
         // Generate next FIR ID
@@ -340,7 +389,7 @@ app.post('/firs', async (req, res) => {
 });
 
 // List all FIRs (excluding Closed)
-app.get('/firs', async (req, res) => {
+app.get('/firs',auth,isPolice, async (req, res) => {
     try {
         const firs = await FIR.find({ status: { $ne: 'Closed' } })
             .populate('complaint')
@@ -352,7 +401,7 @@ app.get('/firs', async (req, res) => {
 });
 
 // Get specific FIR
-app.get('/firs/:firId', async (req, res) => {
+app.get('/firs/:firId',auth,isPolice, async (req, res) => {
     try {
         const firId = parseInt(req.params.firId);
         const fir = await FIR.findOne({ 
@@ -371,7 +420,7 @@ app.get('/firs/:firId', async (req, res) => {
 });
 
 // Update FIR
-app.put('/firs/:firId', async (req, res) => {
+app.put('/firs/:firId',auth,isPolice, async (req, res) => {
     try {
         const firId = parseInt(req.params.firId);
         const { complaint, sections, user, status } = req.body;
@@ -452,7 +501,7 @@ app.put('/firs/:firId', async (req, res) => {
     }
 });
 // Soft Delete FIR (Change status to Closed)
-app.delete('/firs/:firId', async (req, res) => {
+app.delete('/firs/:firId',auth,isPolice, async (req, res) => {
     try {
         const firId = parseInt(req.params.firId);
         const fir = await FIR.findOneAndUpdate(
@@ -470,7 +519,7 @@ app.delete('/firs/:firId', async (req, res) => {
 });
 
 // Add new IPC Section
-app.post('/ipc-sections', async (req, res) => {
+app.post('/ipc-sections',auth,isAdmin, async (req, res) => {
     try {
         const {
             section,
@@ -523,7 +572,7 @@ app.post('/ipc-sections', async (req, res) => {
 });
 
 // List all IPC Sections
-app.get('/ipc-sections', async (req, res) => {
+app.get('/ipc-sections',auth, async (req, res) => {
     try {
         const ipcSections = await IPCSection.find()
             .sort({ section: 1 }); // Sort by section number
@@ -534,7 +583,7 @@ app.get('/ipc-sections', async (req, res) => {
 });
 
 // Get specific IPC Section
-app.get('/ipc-sections/:section', async (req, res) => {
+app.get('/ipc-sections/:section',auth, async (req, res) => {
     try {
         const section = req.params.section;
         const ipcSection = await IPCSection.findOne({ section });
@@ -550,7 +599,7 @@ app.get('/ipc-sections/:section', async (req, res) => {
 });
 
 // Update IPC Section
-app.put('/ipc-sections/:section', async (req, res) => {
+app.put('/ipc-sections/:section',auth,isAdmin, async (req, res) => {
     try {
         const section = req.params.section;
         const updateData = req.body;
@@ -584,7 +633,7 @@ app.put('/ipc-sections/:section', async (req, res) => {
 });
 
 // Delete IPC Section
-app.delete('/ipc-sections/:section', async (req, res) => {
+app.delete('/ipc-sections/:section',auth,isAdmin, async (req, res) => {
     try {
         const section = req.params.section;
         const ipcSection = await IPCSection.findOneAndDelete({ section });
@@ -602,7 +651,7 @@ app.delete('/ipc-sections/:section', async (req, res) => {
 });
 
 // Search IPC Sections
-app.get('/ipc-sections/search/:query', async (req, res) => {
+app.get('/ipc-sections/search/:query',auth, async (req, res) => {
     try {
         const query = req.params.query;
         const ipcSections = await IPCSection.find({
