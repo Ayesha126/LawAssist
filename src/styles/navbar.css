@@ -1,0 +1,112 @@
+/* Navbar container */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    padding: 0 20px;
+    /* Ensure the navbar height is defined */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f8f8;
+    box-shadow: 0px 4px 6px rgba(179, 167, 167, 0.2);
+    z-index: 1000;
+}
+
+
+/* Add margin to the FIR form to prevent overlap */
+
+.fir-container {
+    margin-top: 80px;
+    /* Adjust based on navbar height */
+}
+
+
+/* Fix Flexbox or Grid Issues */
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    /* Ensure proper layout */
+    justify-content: space-between;
+}
+
+
+/* Add padding to the body so content doesn't go under navbar */
+
+body {
+    padding-top: 80px;
+    /* Adjust based on navbar height */
+}
+
+
+/* Logo */
+
+.logo {
+    width: 100px;
+    height: 70px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Logo Image */
+
+.logo img {
+    width: 140px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center top;
+}
+
+
+/* Video Logo */
+
+.logo video {
+    width: 600%;
+    height: 600%;
+    object-fit: contain;
+    object-position: center;
+}
+
+
+/* Navigation links */
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    background: #d9e4ff;
+    padding: 10px 30px;
+    border-radius: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    font-size: 16px;
+    color: #121212;
+    font-weight: 600;
+}
+
+
+/* Login button */
+
+.login-button button {
+    background: #2e0052;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.login-button button:hover {
+    background: #3a006b;
+    box-shadow: 0 8px 16px rgb(14, 16, 110);
+}

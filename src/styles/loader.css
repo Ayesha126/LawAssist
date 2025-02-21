@@ -1,0 +1,88 @@
+/* Loader Container */
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}
+
+
+/* Loader Wrapper */
+
+.loader {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 6px solid rgba(0, 115, 230, 0.2);
+    border-top: 6px solid #060a59;
+    animation: spin 1.5s ease-in-out infinite, flip 2s ease-in-out infinite alternate;
+}
+
+.loader-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    animation: fadeIn 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Flip Animation */
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+
+/* Smooth Fade Effect */
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* Loader Text */
+
+.loader-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #2e0052;
+    animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+
+/* Pulse Animation */
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
