@@ -4,7 +4,6 @@ import Sidebar1 from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import AddOfficer from "./components/AddOfficer";
 import ViewOfficer from "./components/ViewOfficer";
-import ComplaintForm from "./components/ComplaintForm";
 import "./App.css";
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add-officer" element={<AddOfficer />} />
             <Route path="/view-officer" element={<ViewOfficer />} />
-            <Route path="/complaint-form" element={<ComplaintForm/>}/>
           </Routes>
         </div>
       </div>
