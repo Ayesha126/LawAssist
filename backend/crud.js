@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { auth, isAdmin, isPolice } = require('./middleware/auth');
 const JWT_SECRET = 'Shhh'; // In production, use environment variable
-
-
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');

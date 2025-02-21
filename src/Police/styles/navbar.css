@@ -23,7 +23,9 @@
     margin-top: 80px;
     /* Adjust based on navbar height */
 }
-
+.login-container {
+    margin-top: 20px; /* Add extra space below the navbar */
+}
 
 /* Fix Flexbox or Grid Issues */
 
@@ -33,15 +35,10 @@
     /* Ensure proper layout */
     justify-content: space-between;
 }
-
-
-/* Add padding to the body so content doesn't go under navbar */
-
+/* Fix overlapping issue */
 body {
-    padding-top: 80px;
-    /* Adjust based on navbar height */
+    padding-top: 100px; /* Increase padding to avoid overlap */
 }
-
 
 /* Logo */
 
