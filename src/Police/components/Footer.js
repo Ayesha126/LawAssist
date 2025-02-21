@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/footer.css"; // External CSS for styling
-import FooterLogo from "../assets/footerLogo.jpg";
+import FooterLogo from "../../assets/footerLogo.jpg";
 
 const Footer = () => {
     return (

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/loader.css"; // Ensure this file exists
-import LoaderIcon from "../assets/loderIcon.jpg"; // Make sure the image exists
+import LoaderIcon from "../../assets/loderIcon.jpg"; // Make sure the image exists
 
 const Loader = () => {
     return (

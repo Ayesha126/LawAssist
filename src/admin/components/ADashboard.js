@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/dashboard.css";
-import HomeScreenLogo from "../assets/homeScreenLogo.png";
+import "../style/dashboard copy.css"
+import HomeScreenLogo from "../../assets/homeScreenLogo.png";
 
 
 const Dashboard = () => {

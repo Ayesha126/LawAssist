@@ -15,7 +15,6 @@ const IPCSection = require('./Models/IPCSection');
 
 const app = express();
 const PORT = 8000;
-
 // Middleware
 app.use(express.json());
 app.use(cors());
