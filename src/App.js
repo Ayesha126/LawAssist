@@ -6,6 +6,8 @@ import FIRForm from "./Police/components/FIRForm";
 import FIRs from "./Police/components/FIRS";
 import Footer from "./Police/components/Footer";
 import ADashboard from "./admin/components/ADashboard";
+import ViewOfficer from "./admin/components/ViewOfficer";
+import AddOfficer from "./admin/components/AddOfficer";
 import PDashboard from "./Police/components/PDashboard";
 import Loader from "./Police/components/Loader";
 
@@ -85,6 +87,8 @@ function App() {
                       <Route path="/fill-fir" element={<FIRForm />} />
                       <Route path="/admin-dashboard" element={userRole === "Admin" ? <ADashboard /> : <Navigate to="/login" />} />
                       <Route path="/police-dashboard" element={userRole === "Police" ? <PDashboard /> : <Navigate to="/login" />} />
+                      <Route path="/view-officer" element={<ViewOfficer/>} />
+                      <Route path="/add-officer" element={<AddOfficer/>} />
                   </Routes>
                   <Footer />
               </div>
