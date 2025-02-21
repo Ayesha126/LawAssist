@@ -1,43 +1,6 @@
 {
-  "users": [
-    {
-      "userId": 1,
-      "name": "Umer Saiyad",
-      "contact": "9510131599",
-      "role": "Admin",
-      "email": "umersaiyad76@gmail.com",
-      "password": "Umer2003"
-    }
-  ],
-  "complaints": [
-    {
-      "complaintId": 2,
-      "description": "Case",
-      "filed_by": "Pocilde",
-      "user": 1,
-      "date_filed": "2025-02-20T14:06:40.099Z"
-    }
-  ],
-  "firs": [
-    {
-      "firId": 1,
-      "complaint": 2,
-      "sections": [
-        "IPC 302"
-      ],
-      "user": 1,
-      "status": "Open"
-    }
-  ],
-  "ipcSections": [
-    {
-      "section": "IPC 302",
-      "description": "Punishment for murder",
-      "offense": "Murder",
-      "punishment": "Death or life imprisonment",
-      "cognizable": "Cognizable",
-      "bailable": "Non-Bailable",
-      "court": "Sessions Court"
-    }
-  ]
+  "users": [],
+  "complaints": [],
+  "firs": [],
+  "ipcSections": []
 }

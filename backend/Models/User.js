@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    contact:{
+    contact: {
         type: String,
         required: true,
     },
@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6
+    },
+    status: {
+        type: String,
+        enum: ['Active', 'Inactive'],
+        default: 'Active'
     }
 }, { timestamps: true });
 
