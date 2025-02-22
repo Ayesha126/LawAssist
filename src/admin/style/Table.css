@@ -2,24 +2,30 @@
 .table-container {
   padding: 20px;
   background: #f9fafb;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 90%; /* Adjust width as needed */
-  margin: auto; /* Centering */
+  max-width: 95%;
+  margin: auto;
   text-align: center;
+}
+
+/* Title */
+.table-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
 }
 
 /* Table Wrapper */
 .table-wrapper {
-  overflow-x: auto;
+  overflow-x: auto; /* Enables horizontal scrolling on small screens */
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 10px;
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  max-width: 100%;
-  margin: auto; /* Centering */
 }
 
 /* Table */
@@ -27,63 +33,92 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 16px;
-  margin: auto; /* Centering */
-  text-align: center; /* Center text */
+  min-width: 600px;
 }
 
 /* Table Header */
 .modern-table th {
   padding: 14px;
-  text-align: center; /* Center text */
+  text-align: center;
+  background: #374151;
+  color: white;
+  font-weight: bold;
+}
+
+/* Table Rows */
+.modern-table tr {
+  border-bottom: 1px solid #e5e7eb;
 }
 
 /* Table Cells */
 .modern-table td {
   padding: 12px;
-  border-bottom: 1px solid #e5e7eb;
-  text-align: center; /* Center text */
+  text-align: center;
+  color: #333;
 }
 
-  
-  /* Buttons */
+/* Hover Effect on Rows */
+.modern-table tbody tr:hover {
+  background: #f3f4f6;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s ease-in-out;
+}
+
+/* Edit Button */
+.edit-btn {
+  background: #10b981;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #059669;
+}
+
+/* Delete Button */
+.delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-table {
+    font-size: 14px;
+  }
+
   .edit-btn,
   .delete-btn {
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s ease-in-out;
+    padding: 6px 10px;
+    font-size: 12px;
   }
-  
-  .edit-btn {
-    background: #10b981;
-    color: white;
+
+  .table-container {
+    max-width: 100%;
+    padding: 10px;
   }
-  
-  .delete-btn {
-    background: #ef4444;
-    color: white;
+
+  .table-title {
+    font-size: 20px;
   }
-  
-  .edit-btn:hover {
-    background: #059669;
-  }
-  
-  .delete-btn:hover {
-    background: #dc2626;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .modern-table {
-      font-size: 14px;
-    }
-  
-    .edit-btn,
-    .delete-btn {
-      padding: 4px 8px;
-      font-size: 12px;
-    }
-  }
-  
+}

@@ -1,131 +1,108 @@
-// import React, { useEffect, useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import "../styles/navbar.css";
-// import HeaderLogo from "../../assets/headerLogoLawAssist.mp4";
-
-// const Navbar = () => {
-//     const [isAuthenticated, setIsAuthenticated] = useState(false);
-//     const navigate = useNavigate();
-
-//     // Check authentication status when component loads
-//     useEffect(() => {
-//         const token = localStorage.getItem("token");
-//         setIsAuthenticated(!!token); // Convert to boolean
-//     }, []);
-
-//     // Logout function
-//     const handleLogout = () => {
-//         localStorage.removeItem("token"); // Remove auth token
-//         localStorage.removeItem("userRole"); // Remove stored role (if any)
-//         setIsAuthenticated(false);
-//         navigate("/login"); // Redirect to login page
-//     };
-
-//     return (
-//         <nav className="navbar">
-//             <div className="logo">
-//                 <video autoPlay loop muted playsInline>
-//                     <source src={HeaderLogo} type="video/mp4" />
-//                     Your browser does not support the video tag.
-//                 </video>
-//             </div>
-
-//             <div className="nav-links">
-//                 <Link to="/" className="nav-item">Home</Link>
-//                 <Link to="/firs" className="nav-item">FIRS</Link>
-//                 <Link to="/fill-fir" className="nav-item">FILL FIR</Link>
-//                 <Link to="/resources" className="nav-item">Resources</Link>
-//             </div>
-
-//             <div className="login-button">
-//                 {isAuthenticated ? (
-//                     <button onClick={handleLogout}>Logout</button>
-//                 ) : (
-//                     <Link to="/login">
-//                         <button>Login</button>
-//                     </Link>
-//                 )}
-//             </div>
-//         </nav>
-//     );
-// };
-
-// export default Navbar;
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/navbar.css";
-import HeaderLogo from "../../assets/headerLogoLawAssist.mp4";
+import "../styles/login.css";
+import LoginLogo from "../../assets/loginpageImg.png";
 
-const Navbar = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userRole, setUserRole] = useState(null);
+const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        const role = localStorage.getItem("userRole");
-        setIsAuthenticated(!!token);
-        setUserRole(role);
-
-        // Listen for login updates across different components
-        const handleStorageChange = () => {
-            setIsAuthenticated(!!localStorage.getItem("token"));
-            setUserRole(localStorage.getItem("userRole"));
-        };
-
-        window.addEventListener("storage", handleStorageChange);
-
-        return () => {
-            window.removeEventListener("storage", handleStorageChange);
-        };
-    }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userRole");
-        setIsAuthenticated(false);
-        setUserRole(null);
-        navigate("/login");
+    const handleLogin = async () => {
+        setLoading(true);
+        setError("");
+    
+        try {
+            console.log("Attempting login...");
+    
+            const response = await fetch("http://localhost:8000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Login failed");
+            }
+    
+            const data = await response.json();
+            const token = data.token;
+            const role = data.user?.role;
+    
+            if (!token || !role) {
+                throw new Error("Invalid response from server");
+            }
+    
+            localStorage.setItem("token", token);
+            localStorage.setItem("userRole", role);
+    
+            // Dispatch an event to notify other components (Navbar)
+            window.dispatchEvent(new Event("storage"));
+    
+            setTimeout(() => {
+                navigate(role === "Admin" ? "/admin-dashboard" : "/police-dashboard");
+            }, 500);
+    
+        } catch (err) {
+            console.error("Login error:", err.message);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
+    
+    
 
     return (
-        <nav className="navbar">
-            <div className="logo">
-                <video autoPlay loop muted playsInline>
-                    <source src={HeaderLogo} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+        <div className="login-container">
+            <div className="login-card">
+                <div className="login-form">
+                    <h2>Login to your account</h2>
 
-            <div className="nav-links">
-                {userRole === "Police" && (
-                    <>
-                        <Link to="/police-dashboard" className="nav-item">Dashboard</Link>
-                        <Link to="/firs" className="nav-item">FIRs</Link>
-                        <Link to="/fill-fir" className="nav-item">Fill FIR</Link>
-                    </>
-                )}
-                {userRole === "Admin" && (
-                    <>
-                        <Link to="/admin-dashboard" className="nav-item">Admin Dashboard</Link>
-                        <Link to="/view-officer" className="nav-item">View Officers</Link>
-                        <Link to="/add-officer" className="nav-item">Add Officer</Link>
-                    </>
-                )}
-                <Link to="/resources" className="nav-item">Resources</Link>
-            </div>
+                    {error && <p className="error-message">{error}</p>}
 
-            <div className="login-button">
-                {isAuthenticated ? (
-                    <button onClick={handleLogout}>Logout</button>
-                ) : (
-                    <Link to="/login">
-                        <button>Login</button>
-                    </Link>
-                )}
+                    <div className="input-group">
+                        <FaEnvelope className="input-icon" />
+                        <input
+                            type="email"
+                            placeholder="alex@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <FaLock className="input-icon" />
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="forgot-password">
+                        <Link to="/forgot-password">Forgot password?</Link>
+                    </div>
+
+                    <button 
+                        className="login-btn" 
+                        onClick={handleLogin} 
+                        disabled={loading}
+                    >
+                        {loading ? "Logging in..." : "Login now"}
+                    </button>
+                </div>
+
+                <div className="login-image">
+                    <img src={LoginLogo} alt="Login page logo" />
+                </div>
             </div>
-        </nav>
+        </div>
     );
 };
 
-export default Navbar;
+export default Login;

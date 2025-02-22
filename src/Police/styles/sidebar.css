@@ -1,0 +1,143 @@
+/* Base styles */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: #1a1a1a;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: all 0.3s ease;
+    color: #fff;
+    z-index: 100;
+  }
+  
+  .sidebar.collapsed {
+    width: 70px;
+  }
+  
+  /* Logo section */
+  .logo-area {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .logo-container {
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Menu section */
+  .sidebar-menu {
+    padding: 10px 0;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  
+  /* Menu items */
+  .menu-item {
+    position: relative;
+    width: 100%;
+  }
+  
+  .menu-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    background: transparent;
+    color: #b4b4b4;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  .menu-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .menu-label {
+    margin-left: 12px;
+    flex: 1;
+    font-size: 14px;
+  }
+  
+  .menu-arrow {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-button.active .menu-arrow {
+    transform: rotate(90deg);
+  }
+  
+  /* Submenu */
+  .submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .submenu.open {
+    max-height: 500px;
+  }
+  
+  .submenu-item {
+    display: flex;
+    padding: 10px 15px 10px 47px;
+    color: #b4b4b4;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  .submenu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  .submenu-item.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  /* Toggle button */
+  .sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 101;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  /* Main content */
+  .main-content {
+    margin-left: 260px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.collapsed {
+    margin-left: 70px;
+  }
