@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaPhone, FaLock } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaUser, FaEnvelope, FaPhone, FaLock, FaBuilding } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../style/Form.css";
 
@@ -9,10 +9,35 @@ const AddOfficer = () => {
     email: "",
     contact: "",
     password: "",
+    station: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [stations, setStations] = useState([]);
+
+  // Fetch Active Police Stations
+  useEffect(() => {
+    const fetchStations = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/stations", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setStations(data);
+        } else {
+          throw new Error("Failed to fetch stations");
+        }
+      } catch (error) {
+        console.error("Error fetching stations:", error.message);
+      }
+    };
+
+    fetchStations();
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -30,11 +55,11 @@ const AddOfficer = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure authentication
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
           ...formData,
-          role: "Police", // Officer role is always "Police"
+          role: "Police",
         }),
       });
 
@@ -45,7 +70,7 @@ const AddOfficer = () => {
       }
 
       setMessage("Officer added successfully!");
-      setFormData({ name: "", email: "", contact: "", password: "" }); // Reset form
+      setFormData({ name: "", email: "", contact: "", password: "", station: "" }); // Reset form
     } catch (error) {
       setMessage(error.message);
     }
@@ -127,6 +152,27 @@ const AddOfficer = () => {
               >
                 {showPassword ? "👁️" : "🙈"}
               </button>
+            </div>
+          </div>
+
+          {/* Police Station Selection */}
+          <div className="input-group">
+            <div className="input-wrapper">
+              <FaBuilding className="input-icon" />
+              <select
+                required
+                name="station"
+                value={formData.station}
+                onChange={handleChange}
+                className="form-input"
+              >
+                <option value="">Select Police Station</option>
+                {stations.map((station) => (
+                  <option key={station.station_id} value={station.station_id}>
+                    {station.name} ({station.station_id})
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>

@@ -18,34 +18,20 @@ const complaintSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-
-    // New Fields Added
-    complainant_name: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3,
-        maxlength: 100
-    },
-    complainant_contact: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 10,
-        maxlength: 15
-    },
-    complainant_address: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3,
-        maxlength: 500
-    },
-    assigned_officer: {
+    assigned_station: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', 
-        required: true 
+        ref: 'Station',
+        required: true
     },
+    citizen: {
+        type: String,  // Storing contact number of the citizen
+        ref: 'Citizen',
+        required: true
+    },
+    sections: [{
+        section_id: { type: mongoose.Schema.Types.ObjectId, ref: 'IPCSection', required: true },
+        cognizable: { type: String, enum: ['Cognizable', 'Non-Cognizable'], required: true }
+    }],
     evidence: [{
         type: String,  // Can store URLs to images, videos, or documents
         trim: true
@@ -54,8 +40,8 @@ const complaintSchema = new mongoose.Schema({
         type: String,
         enum: ['Active', 'Inactive'],
         default: 'Active',
-    },
-    }, { timestamps: true });
+    }
+}, { timestamps: true });
 
 const Complaint = mongoose.model('Complaint', complaintSchema);
 module.exports = Complaint;

@@ -33,6 +33,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     },
+    station: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Station", // Reference to the Station schema
+        required: function () {
+          return this.role === "Police"; // Station is required only for Police users
+        },
+      },
     status: {
         type: String,
         enum: ['Active', 'Inactive'],

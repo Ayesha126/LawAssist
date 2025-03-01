@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Adjusted Form Container */
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: calc(100vh - 80px); /* Adjust height to prevent overlap */
+    margin-top: 80px; /* Reduce margin */
+    padding-bottom: 100px; /* Ensures content doesn’t get hidden by footer */
+  }
+  
+  /* Ensure body takes full height */
+  html, body {
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  
+  /* Form Styling */
+  .modern-form {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-light: rgba(59, 130, 246, 0.1);
+    --success: #10b981;
+    --error: #ef4444;
+    --text-main: #1e293b;
+    --text-secondary: #64748b;
+    --bg-input: #f8fafc;
+  
+    width: 100%;
+    max-width: 420px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(148, 163, 184, 0.1);
+    text-align: center;
+  }
+  
+  /* Title */
+  .form-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 24px;
+  }
+  
+  /* Input Group */
+  .input-group {
+    margin-bottom: 16px;
+  }
+  
+  /* Input Wrapper */
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Form Input */
+  .form-input {
+    width: 100%;
+    height: 45px;
+    padding: 0 40px;
+    font-size: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: var(--bg-input);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+  }
+  
+  /* Placeholder */
+  .form-input::placeholder {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+  
+  /* Input Icon */
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 18px;
+    color: var(--text-secondary);
+  }
+  
+  /* Password Toggle */
+  .password-toggle {
+    position: absolute;
+    right: 14px;
+    font-size: 18px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  /* Password Toggle Hover */
+  .password-toggle:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+  }
+  
+  /* Submit Button */
+  .submit-button {
+    width: 100%;
+    height: 45px;
+    margin-top: 8px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  /* Submit Button Hover */
+  .submit-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow:
+      0 4px 12px rgba(59, 130, 246, 0.25),
+      0 2px 4px rgba(59, 130, 246, 0.15);
+  }
+  
+  /* Footer */
+  .form-footer {
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  
+  /* Login Link */
+  .login-link {
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .login-link:hover {
+    color: var(--primary-dark);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .modern-form {
+      max-width: 350px;
+    }
+  }

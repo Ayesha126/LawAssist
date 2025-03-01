@@ -1,0 +1,22 @@
+.header {
+  background-color: #2196f3;
+  padding: 15px 20px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 260px; /* Default sidebar width */
+  width: calc(100% - 260px); /* Full width minus sidebar */
+  height: 60px; /* Match sidebar logo height */
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  z-index: 1000; /* Above content */
+}
+
+.header.collapsed {
+  margin-left: 70px; /* Collapsed sidebar width */
+  width: calc(100% - 70px);
+}
+
+.welcome-message {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}

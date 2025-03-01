@@ -1,0 +1,29 @@
+/* src/styles/App.css */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .layout-wrapper {
+    display: flex;
+    flex: 1;
+  }
+  
+  .content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 260px; /* Default sidebar width */
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.collapsed {
+    margin-left: 70px; /* Collapsed sidebar width */
+  }
