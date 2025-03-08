@@ -35,11 +35,15 @@ const userSchema = new mongoose.Schema({
     },
     station: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Station", // Reference to the Station schema
+        ref: "Station",
         required: function () {
-          return this.role === "Police"; // Station is required only for Police users
+            return this.role === "Police";
         },
-      },
+    },
+    profileImage: { // New field for profile image
+        type: String,
+        default: null, // Default to null if no image is uploaded
+    },
     status: {
         type: String,
         enum: ['Active', 'Inactive'],
